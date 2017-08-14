@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/task
+   		http://www.springframework.org/schema/task/spring-task.xsd
+		http://code.alibabatech.com/schema/dubbo
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--搭建Dubbo的服务提供方-->
+    <!--Dubbo的服务提供方名称-->
+    <dubbo:application name="babasport-service-product"/>
+    <!--连接zookeeper注册中心-->
+    <dubbo:registry address="192.168.56.103:2181" protocol="zookeeper"/>
+   <!-- <dubbo:registry address="N/A"/>-->
+    <!--暴露 ip port接口-->
+    <dubbo:protocol port="20880" name="dubbo" host="127.0.0.1"/>
+    <!--暴露接口-->
+    <dubbo:service interface="com.babasport.core.service.TestTbService" ref="testTbService"/>
+</beans>
