@@ -23,10 +23,12 @@
     <!--Dubbo消费方名称-->
     <dubbo:application name="babasport-console"/>
     <!--连接zookeeper注册中心-->
-    <dubbo:registry address="192.168.56.103:2181" protocol="zookeeper"/>
-    <!--<dubbo:registry address="N/A"/>-->
+    <!--<dubbo:registry address="192.168.56.103:2181" protocol="zookeeper"/>-->
+    <dubbo:registry address="N/A"/>
     <!--调用接口-->
     <dubbo:reference interface="com.babasport.core.service.TestTbService" id="testTbService"
+                     url="dubbo://127.0.0.1:20880"/>
+    <dubbo:reference interface="com.babasport.core.service.BrandService" id="brandService"
                      url="dubbo://127.0.0.1:20880"/>
     <!--全局设置超时时间-->
     <dubbo:consumer timeout="60000" check="false"/>

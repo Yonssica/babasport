@@ -3,9 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <settings>
+        <!--开启驼峰匹配-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
     <!--别名-->
     <typeAliases>
         <package name="com.babasport.core.pojo"/>
     </typeAliases>
 
+    <plugins>
+        <!--自定义分页插件-->
+        <plugin interceptor="com.babasport.core.tools.PageHelper"></plugin>
+    </plugins>
 </configuration>

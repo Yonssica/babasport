@@ -23,10 +23,11 @@
     <!--Dubbo的服务提供方名称-->
     <dubbo:application name="babasport-service-product"/>
     <!--连接zookeeper注册中心-->
-    <dubbo:registry address="192.168.56.103:2181" protocol="zookeeper"/>
-   <!-- <dubbo:registry address="N/A"/>-->
+    <!--<dubbo:registry address="192.168.56.103:2181" protocol="zookeeper"/>-->
+    <dubbo:registry address="N/A"/>
     <!--暴露 ip port接口-->
     <dubbo:protocol port="20880" name="dubbo" host="127.0.0.1"/>
     <!--暴露接口-->
     <dubbo:service interface="com.babasport.core.service.TestTbService" ref="testTbService"/>
+    <dubbo:service interface="com.babasport.core.service.BrandService" ref="brandService"/>
 </beans>

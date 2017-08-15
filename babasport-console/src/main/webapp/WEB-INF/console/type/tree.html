@@ -1,0 +1,40 @@
+<#if isRoot>
+[{
+	"text": "<a href='v_list.do' target='rightFrame'>商品分类</a>",
+	"classes": "folder"
+	<#if list?size gt 0>,
+	"expanded": true,
+	"children": [
+	<#list list as channel>
+		{
+		"id": "1",
+		"text": "户外运动",
+		"classes": "folder",
+		"hasChildren": true
+		}，
+		{
+		"id": "2",
+		"text": "图书、音像、电子书刊",
+		"classes": "folder",
+		"hasChildren": true
+		}
+	</#list>
+	]
+	</#if>
+}]
+<#else>
+	[
+		{
+		"id": "3",
+		"text": "电子书刊",
+		"classes": "file",
+		"hasChildren": false
+		},
+		{
+		"id": "4",
+		"text": "电子书",
+		"classes": "file",
+		"hasChildren": false
+		}
+	]
+</#if>

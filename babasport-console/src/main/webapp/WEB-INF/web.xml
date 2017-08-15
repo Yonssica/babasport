@@ -19,4 +19,18 @@
     <servlet-name>console</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+
+  <!--编码过滤器，处理Post方式的请求编码-->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="babasport-common" />
+        <module name="babasport-console" />
+        <module name="babasport-dao" />
+        <module name="babasport-interface" />
+        <module name="babasport-login" />
+        <module name="babasport-pojo" />
+        <module name="babasport-portal" />
+        <module name="babasport-service-cms" />
+        <module name="babasport-service-cob" />
+        <module name="babasport-service-product" />
+        <module name="babasport-service-solr" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="babasport" target="1.7" />
+      <module name="babasport-common" target="1.7" />
+      <module name="babasport-console" target="1.7" />
+      <module name="babasport-dao" target="1.7" />
+      <module name="babasport-interface" target="1.7" />
+      <module name="babasport-login" target="1.7" />
+      <module name="babasport-pojo" target="1.7" />
+      <module name="babasport-portal" target="1.7" />
+      <module name="babasport-protal" target="1.7" />
+      <module name="babasport-service-cms" target="1.7" />
+      <module name="babasport-service-cob" target="1.7" />
+      <module name="babasport-service-product" target="1.7" />
+      <module name="babasport-service-solr" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
