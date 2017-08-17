@@ -63,4 +63,20 @@ public class BrandAction {
         brandService.updateById(brand);
         return "redirect:/console/brand/list.do";
     }
+
+    // 品牌批量删除
+    @RequestMapping(value = "/console/brand/doDelete.do")
+    public String consoleBrandDoDelete(String ids,String name,Integer isDisplay,Integer pageNum) {
+        System.out.println("ids:" + ids);
+        System.out.println("name:" + name);
+        System.out.println("isDisplay:" + isDisplay);
+        System.out.println("pageNum:" + pageNum);
+        brandService.deleteByIds(ids);
+        if(isDisplay == null){
+            return "redirect:/console/brand/list.do?name=" + name + "&pageNum=" + pageNum;
+        }else{
+            return "redirect:/console/brand/list.do?name=" + name + "&isDisplay=" + isDisplay + "&pageNum=" + pageNum;
+        }
+
+    }
 }

@@ -12,7 +12,6 @@ public interface BrandService {
 
     /**
      * 根据条件查询
-     *
      * @param brand 条件封装成Brand 如果是null则查询所有
      * @return
      */
@@ -30,4 +29,10 @@ public interface BrandService {
      * @param brand
      */
     void updateById(Brand brand);
+
+    /**
+     * 根据ids批量删除品牌
+     * @param ids
+     */
+    void deleteByIds(String ids);
 }

@@ -5,6 +5,33 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>babasport-list</title>
+    <script>
+        // 全选或全不选
+        function checkBox(checked) {
+            $("#tableList input[type='checkbox']").attr("checked",checked);
+        }
+
+        function optDelete(name,isDisplay,pageNum) {
+            var size = $("input[name='ids']:checked").size();
+            if (size == 0) {
+                alert("请至少选择一个需要删除的品牌");
+                return;
+            }
+            if (! confirm("确定删除吗？")) {
+                return;
+            }
+          /*  var ids = "";
+            $("input[name='ids']:checked").each(function () {
+                ids = ids + this.value + ",";
+        })
+            var str = ids.substring(0,ids.length-1);*/
+            // 开始删除 提交表单
+
+            $("#formList")[0].action = 'doDelete.do?name=' + name + '&isDisplay=' + isDisplay + '&pageNum=' +
+                pageNum;
+            $("#formList").submit();
+        }
+    </script>
 </head>
 <body>
 <div class="box-positon">
@@ -23,10 +50,11 @@
         </select>
         <input type="submit" class="query" value="查询"/>
     </form>
-    <table cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
+    <form id="formList" method="post">
+    <table id="tableList" cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
         <thead class="pn-lthead">
         <tr>
-            <th width="20"><input type="checkbox" onclick="checkBox('ids',this.checked)"/></th>
+            <th width="20"><input type="checkbox" onclick="checkBox(this.checked)"/></th>
             <th>品牌ID</th>
             <th>品牌名称</th>
             <th>品牌图片</th>
@@ -39,7 +67,7 @@
         <tbody class="pn-ltbody">
             <c:forEach items="${pageBrands.result}" var="brand">
                 <tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-                    <td><input type="checkbox" value="8" name="ids"/></td>
+                    <td><input type="checkbox" value="${brand.id}" name="ids"/></td>
                     <td align="center">${brand.id}</td>
                     <td align="center">${brand.name}</td>
                     <td align="center"><img width="40" height="40" src="${brand.imgUrl}"/></td>
@@ -58,6 +86,7 @@
             </c:forEach>
         </tbody>
     </table>
+    </form>
     <div class="page pb15">
 	<span class="r inb_a page_b">
 
@@ -98,7 +127,9 @@
 	
 	</span>
     </div>
-    <div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/></div>
+    <div
+            style="margin-top:15px;"><input class="del-button" type="button" value="删除"
+                                            onclick="optDelete('${name}','${isDisplay}','${pageBrands.pageNum}');"/></div>
 </div>
 </body>
 </html>

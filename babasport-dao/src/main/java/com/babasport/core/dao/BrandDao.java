@@ -1,6 +1,8 @@
 package com.babasport.core.dao;
 
 import com.babasport.core.pojo.Brand;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,4 +31,10 @@ public interface BrandDao {
      * @param brand
      */
     void updateById(Brand brand);
+
+    /**s
+     * 根据ids批量删除
+     * @param ids
+     */
+    void deleteByIds(@Param("ids") String ids);
 }

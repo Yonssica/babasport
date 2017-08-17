@@ -59,4 +59,9 @@
 			`id` = #{id};
 		</where>
 	</update>
+
+	<!--根据ids批量删除-->
+	<delete id="deleteByIds">
+		DELETE FROM bbs_brand WHERE id IN (${ids});
+	</delete>
 </mapper>
