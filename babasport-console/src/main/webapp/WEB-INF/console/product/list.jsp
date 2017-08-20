@@ -43,6 +43,7 @@
                 <option value="${brand.id}">${brand.name}</option>
             </c:forEach>
         </select>
+
         <select name="isShow">
             <option value="1" <c:if test="${isShow == 1}">selected="selected"</c:if>>上架</option>
             <option value="0" <c:if test="${isShow == 0}">selected="selected"</c:if>>下架</option>
