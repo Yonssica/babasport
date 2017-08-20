@@ -30,4 +30,6 @@
     <!--暴露接口-->
     <dubbo:service interface="com.babasport.core.service.TestTbService" ref="testTbService"/>
     <dubbo:service interface="com.babasport.core.service.BrandService" ref="brandService"/>
+    <dubbo:service interface="com.babasport.core.service.ProductService" ref="productService"/>
+    <dubbo:service interface="com.babasport.core.service.SkuService" ref="skuService"/>
 </beans>

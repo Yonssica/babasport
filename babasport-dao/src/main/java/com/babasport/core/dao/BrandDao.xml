@@ -64,4 +64,13 @@
 	<delete id="deleteByIds">
 		DELETE FROM bbs_brand WHERE id IN (${ids});
 	</delete>
+
+	<!--查询所有brand的id和name-->
+	<select id="findAll" resultType="brand">
+		SELECT
+			id,
+			`name`
+		FROM
+			bbs_brand
+	</select>
 </mapper>

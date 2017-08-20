@@ -57,6 +57,19 @@ public class Sku implements Serializable {
     private Integer stock;
 
     /**
+     * 颜色对象
+     */
+    private Color color;
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
      * 购买限制
      */
     @Column(name = "upper_limit")

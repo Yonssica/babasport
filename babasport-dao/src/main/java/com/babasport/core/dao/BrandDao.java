@@ -32,9 +32,15 @@ public interface BrandDao {
      */
     void updateById(Brand brand);
 
-    /**s
+    /**
      * 根据ids批量删除
      * @param ids
      */
     void deleteByIds(@Param("ids") String ids);
+
+    /**
+     * 查询所有brand
+     * @return
+     */
+    List<Brand> findAll();
 }

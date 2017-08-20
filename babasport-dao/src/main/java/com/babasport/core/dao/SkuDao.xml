@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babasport.core.dao.SkuDao">
+
+	<resultMap id="skuColorResultMap" type="Sku" autoMapping="true">
+		<id column="id" property="id"/>
+		
+		<association property="color" javaType="Color" autoMapping="true">
+			<id column="color_id" property="id"/>
+		</association>
+	</resultMap>
+
+	<!--根据商品id查询-->
+	<select id="findByProductId" resultMap="skuColorResultMap">
+		SELECT
+			*
+		FROM
+			bbs_sku s
+		LEFT JOIN bbs_color c ON s.color_id=c.id
+		WHERE
+			product_id = #{productId}
+	</select>
+	
+</mapper>

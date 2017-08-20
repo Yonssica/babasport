@@ -3,6 +3,8 @@ package com.babasport.core.service;
 import com.babasport.core.pojo.Brand;
 import com.babasport.core.tools.PageHelper.Page;
 
+import java.util.List;
+
 
 /**
  * 品牌服务接口
@@ -35,4 +37,10 @@ public interface BrandService {
      * @param ids
      */
     void deleteByIds(String ids);
+
+    /**
+     * 查询所有brand
+     * @return
+     */
+    List<Brand> findAllBrands();
 }
