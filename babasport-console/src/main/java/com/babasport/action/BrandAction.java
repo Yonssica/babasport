@@ -47,11 +47,11 @@ public class BrandAction {
 
     // 修改品牌界面跳转
     @RequestMapping(value = "console/brand/edit.do")
-    public String consoleBrandShowEdit(Long brandId,Model model) {
+    public String consoleBrandShowEdit(Long brandId, Model model) {
         System.out.println("brandId:" + brandId);
         // 设置修改的数据回显
         Brand brand = brandService.findById(brandId);
-        model.addAttribute("brand",brand);
+        model.addAttribute("brand", brand);
         return "brand/edit";
     }
 
@@ -66,15 +66,15 @@ public class BrandAction {
 
     // 品牌批量删除
     @RequestMapping(value = "/console/brand/doDelete.do")
-    public String consoleBrandDoDelete(String ids,String name,Integer isDisplay,Integer pageNum) {
+    public String consoleBrandDoDelete(String ids, String name, Integer isDisplay, Integer pageNum) {
         System.out.println("ids:" + ids);
         System.out.println("name:" + name);
         System.out.println("isDisplay:" + isDisplay);
         System.out.println("pageNum:" + pageNum);
         brandService.deleteByIds(ids);
-        if(isDisplay == null){
+        if (isDisplay == null) {
             return "redirect:/console/brand/list.do?name=" + name + "&pageNum=" + pageNum;
-        }else{
+        } else {
             return "redirect:/console/brand/list.do?name=" + name + "&isDisplay=" + isDisplay + "&pageNum=" + pageNum;
         }
 

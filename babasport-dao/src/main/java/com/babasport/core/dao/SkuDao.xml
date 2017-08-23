@@ -21,5 +21,16 @@
 		WHERE
 			product_id = #{productId}
 	</select>
-	
+
+	<!--根据商品id 查询库存与颜色-->
+	<select id="findSkuAndColorByProductId" resultType="SuperPojo">
+		SELECT
+			*
+		FROM
+			bbs_sku s,
+			bbs_color c
+		WHERE
+			s.color_id = c.id
+		AND s.product_id = #{productId}
+	</select>
 </mapper>

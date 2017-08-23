@@ -59,6 +59,7 @@ public class Sku implements Serializable {
     /**
      * 颜色对象
      */
+    @Transient
     private Color color;
 
     public Color getColor() {

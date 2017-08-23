@@ -7,11 +7,13 @@ import com.babasport.core.service.BrandService;
 import com.babasport.core.service.ProductService;
 import com.babasport.core.tools.Encoding;
 import com.babasport.core.tools.PageHelper.Page;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -70,7 +72,7 @@ public class ProductAction {
 
     // 修改商品上下架状态
     @RequestMapping(value = "console/product/isShow.do")
-    public String consoleProductUpdateIsShow(String ids, Integer isShow) {
+    public String consoleProductUpdateIsShow(String ids, Integer isShow) throws IOException, SolrServerException {
         System.out.println("ids:" + ids);
         System.out.println("isShow:" + isShow);
 

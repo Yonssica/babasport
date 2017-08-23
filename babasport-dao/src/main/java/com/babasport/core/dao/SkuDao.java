@@ -2,6 +2,7 @@ package com.babasport.core.dao;
 
 import com.babasport.core.pojo.Color;
 import com.babasport.core.pojo.Sku;
+import com.babasport.core.pojo.SuperPojo;
 import com.github.abel533.mapper.Mapper;
 
 import java.util.List;
@@ -24,4 +25,11 @@ public interface SkuDao extends Mapper<Sku> {
      * @return
      */
     List<Sku> findByProductId(Long productId);
+
+    /**
+     * 根据商品id 查询库存与颜色
+     * @param productId
+     * @return
+     */
+    List<SuperPojo> findSkuAndColorByProductId(Long productId);
 }

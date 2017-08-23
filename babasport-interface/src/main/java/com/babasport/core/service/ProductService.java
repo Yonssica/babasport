@@ -2,8 +2,11 @@ package com.babasport.core.service;
 
 import com.babasport.core.pojo.Color;
 import com.babasport.core.pojo.Product;
+import com.babasport.core.pojo.SuperPojo;
 import com.babasport.core.tools.PageHelper.Page;
+import org.apache.solr.client.solrj.SolrServerException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -38,5 +41,12 @@ public interface ProductService {
      * @param product
      * @param ids
      */
-    void updateIsShow(Product product, String ids);
+    void updateIsShow(Product product, String ids) throws IOException, SolrServerException;
+
+    /**
+     * 根据id查询单个商品信息
+     * @param productId
+     * @return
+     */
+    SuperPojo findProductById(Long productId);
 }
