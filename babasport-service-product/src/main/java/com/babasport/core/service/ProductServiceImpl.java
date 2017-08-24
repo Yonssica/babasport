@@ -148,6 +148,7 @@ public class ProductServiceImpl implements ProductService {
                 document.addField("url", product1.getImgUrl());
                 document.addField("brandId", product1.getBrandId());
 
+
                 // 查询出某商品库存中的最低价格
                 Example example1 = new Example(Sku.class);
                 example1.createCriteria().andEqualTo("productId", product1.getId());
