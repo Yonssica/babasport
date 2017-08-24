@@ -95,4 +95,9 @@ public class SolrServiceImpl implements SolrService {
         page.setResult(superProducts);
         return page;
     }
+
+    @Override
+    public void addProduct(String ids) {
+
+    }
 }

@@ -23,4 +23,9 @@ public interface SolrService {
     public Page<SuperPojo> findProductByKeyword(String keyword, String sort, Integer pageNum, Integer pageSize, Long
             brandId, Float pa, Float pb) throws SolrServerException;
 
+    /**
+     * 添加商品信息到solr服务器
+     * @param ids
+     */
+    void addProduct(String ids);
 }

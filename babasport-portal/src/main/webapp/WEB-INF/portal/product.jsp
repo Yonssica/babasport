@@ -37,30 +37,55 @@
             }
         };
 
+        var colorId;    // 记录用户点击颜色的id（全局变量）
         //点击颜色加载尺码
-        function colorToRed(target,colorId)
+        function colorToRed(target,id)
         {
+            // 将颜色id设置到全局变量中
+            colorId = id;
             //清空所有标签样式
             $("#colors div").attr("class","item");
             //单加点击的样式
             $(target).attr("class","item selected");
 
             var html = "";
-
+            var flag = true;
             <c:forEach items="${superPojo.skus}" var="sku">
-
             //加载该商品中的该颜色旗下所有尺码
-            if(colorId=='${sku.color_id}')
+            if(id=='${sku.color_id}')
             {
-                html = html + "<div class=\"item\" id=\"S\" onclick=\"sizeToRed(this,'${sku.size}')\"><b></b><a href=\"javascript:;\" title=\"S\" >${sku.size}</a></div>";
+                if (flag) {
+                    html = html +
+                        "<div class=\"item selected\" id=\"S\" onclick=\"sizeToRed(this,'${sku.size}')\"><b></b><a href=\"javascript:;\" title=\"S\" >${sku.size}</a></div>";
+                    flag = false;
+                    $("#bbs-price").html("${sku.price}");
+                } else {
+                    html = html + "<div class=\"item\" id=\"S\" onclick=\"sizeToRed(this,'${sku.size}')\"><b></b><a href=\"javascript:;\" title=\"S\" >${sku.size}</a></div>";
+                }
             }
-
             </c:forEach>
-
             $("#sizes").html(html);
-
         }
 
+        // 点击尺码
+        function sizeToRed(target,size) {
+            //清空所有标签样式
+            $("#sizes div").attr("class","item");
+            //单加点击的样式
+            $(target).attr("class","item selected");
+
+            <c:forEach items="${superPojo.skus}" var="sku">
+            if (colorId == '${sku.color_id}' && size == '${sku.size}') {
+                $("#bbs-price").html("${sku.price}");
+            }
+            </c:forEach>
+        };
+        
+        // 页面加载后执行
+        $(function () {
+            // 自动触发该元素的点击事件
+            $("#colors div:first").trigger("click");
+        })
     </script>
 </head>
 <body>
