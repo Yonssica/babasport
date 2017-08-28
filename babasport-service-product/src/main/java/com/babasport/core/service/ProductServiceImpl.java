@@ -15,9 +15,14 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +45,8 @@ public class ProductServiceImpl implements ProductService {
     private Jedis jedis;
     @Autowired
     private SolrServer solrServer;
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
     @Override
     public Page<Product> findByExample(Product product, Integer pageNum, Integer pageSize) {
@@ -122,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateIsShow(Product product, String ids) throws IOException, SolrServerException {
+    public void updateIsShow(Product product, final String ids) throws IOException, SolrServerException {
         Example example = new Example(Product.class);
         // 将ids的字符串转成list集合
         List list = new ArrayList();
@@ -137,31 +144,15 @@ public class ProductServiceImpl implements ProductService {
 
         // 如果是商品上架，将商品信息添加到solr服务器中
         if (product.getIsShow() == 1) {
-            // 查询ids中的所有商品
-            List<Product> products = productDao.selectByExample(example);
-            // 遍历查询出的商品集合
-            for (Product product1 : products) {
-                // 将商品的各个信息，添加到文档对象中
-                SolrInputDocument document = new SolrInputDocument();
-                document.addField("id", product1.getId());
-                document.addField("name_ik", product1.getName());
-                document.addField("url", product1.getImgUrl());
-                document.addField("brandId", product1.getBrandId());
-
-
-                // 查询出某商品库存中的最低价格
-                Example example1 = new Example(Sku.class);
-                example1.createCriteria().andEqualTo("productId", product1.getId());
-                example1.setOrderByClause("price asc");  // 价格升序
-                // 开始分页
-                PageHelper.startPage(1, 1);
-                List<Sku> skus = skuDao.selectByExample(example1);
-                PageHelper.endPage();
-
-                document.addField("price", skus.get(0).getPrice());
-                solrServer.add(document);
-                solrServer.commit();
-            }
+            // 采用消息服务模式
+            // 将商品信息添加到solr服务器中（发送消息(ids)到ActiveMQ中）
+            jmsTemplate.send("productIds", new MessageCreator() {
+                @Override
+                public Message createMessage(Session session) throws JMSException {
+                    // 使用session创建文本消息
+                    return session.createTextMessage(ids);
+                }
+            });
         }
     }
 

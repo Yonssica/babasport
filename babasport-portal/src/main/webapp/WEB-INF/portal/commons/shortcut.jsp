@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script type="text/javascript">
+	function showLogin() {
+		window.location = 'http://localhost:8082/login.aspx?returnUrl=' + encodeURIComponent(window.location);
+	}
+</script>
 <div id="shortcut-2013">
 	<div class="w">
 		<ul class="fl lh">
@@ -9,7 +14,7 @@
 		<ul class="fr lh">
 			<li class="fore1" id="loginbar" clstag="homepage|keycount|home2013|01b">
 				您好！欢迎来到新巴巴运动网！
-				<a href="javascript:;" onclick="login()">[登录]</a>&nbsp;
+				<a href="javascript:;" onclick="showLogin()">[登录]</a>&nbsp;
 				<a href="javascript:;" onclick="regist()">[免费注册]</a>
 				<a href="javascript:;" onclick="logout()">[退出]</a>
 				<a href="javascript:;" onclick="myOrder()" >我的订单</a>

@@ -57,5 +57,7 @@
         <property name="messageListener" ref="myMessageListener"/>
         <!--监听目标名称-->
         <property name="destinationName" value="productIds"/>
+        <!-- 设置发布订阅模式，默认为点对点模式 (value=false) -->
+        <property name="pubSubDomain" value="true"/>
     </bean>
 </beans>

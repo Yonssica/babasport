@@ -4,6 +4,8 @@ import com.babasport.core.pojo.SuperPojo;
 import com.babasport.core.tools.PageHelper.Page;
 import org.apache.solr.client.solrj.SolrServerException;
 
+import java.io.IOException;
+
 /**
  * solr服务接口
  * Created by hwd on 2017/8/20.
@@ -27,5 +29,5 @@ public interface SolrService {
      * 添加商品信息到solr服务器
      * @param ids
      */
-    void addProduct(String ids);
+    void addProduct(String ids) throws IOException, SolrServerException;
 }

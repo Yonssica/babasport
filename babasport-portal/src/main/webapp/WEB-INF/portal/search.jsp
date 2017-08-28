@@ -374,7 +374,7 @@
                                             <div class="gl-i-wrap">
                                                 <div class="p-img">
                                                     <a href="javascript:;"
-                                                       onclick="window.open('/product/detail?productId=${product.id}')"
+                                                       onclick="window.open('http://localhost:8084/html/product/${product.id}.html')"
                                                        style="position: relative;">
                                                         <c:forTokens items="${product.url}" delims="," begin="0" end="0"
                                                                      var="imgUrl">

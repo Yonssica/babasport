@@ -1,7 +1,13 @@
 package com.babasport.core.service;
 
+import com.babasport.core.dao.ProductDao;
+import com.babasport.core.dao.SkuDao;
+import com.babasport.core.pojo.Product;
+import com.babasport.core.pojo.Sku;
 import com.babasport.core.pojo.SuperPojo;
+import com.babasport.core.tools.PageHelper;
 import com.babasport.core.tools.PageHelper.Page;
+import com.github.abel533.entity.Example;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.SortClause;
 import org.apache.solr.client.solrj.SolrServer;
@@ -9,9 +15,11 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +33,10 @@ public class SolrServiceImpl implements SolrService {
 
     @Autowired
     private SolrServer solrServer;
+    @Autowired
+    private ProductDao productDao;
+    @Autowired
+    private SkuDao skuDao;
 
     @Override
     public Page<SuperPojo> findProductByKeyword(String keyword, String sort, Integer pageNum, Integer pageSize, Long
@@ -97,7 +109,39 @@ public class SolrServiceImpl implements SolrService {
     }
 
     @Override
-    public void addProduct(String ids) {
+    public void addProduct(String ids) throws IOException, SolrServerException {
+        // 将ids的字符串转成集合
+        String[] split = ids.split(",");
+        List list = new ArrayList();
+        for (String s : split) {
+            list.add(s);
+        }
 
+        // 设置添加商品的id条件
+        Example example = new Example(Sku.class);
+        example.createCriteria().andIn("id",list);
+        // 查询ids中的所有商品
+        List<Product> products = productDao.selectByExample(example);
+        // 遍历查询出的商品集合
+        for (Product product : products) {
+            // 将商品的各个信息，添加到文档集合
+            SolrInputDocument document = new SolrInputDocument();
+            document.addField("id",product.getId());
+            document.addField("name_ik",product.getName());
+            document.addField("url",product.getImgUrl());
+            document.addField("brandId",product.getBrandId());
+
+            Example example2 = new Example(Sku.class);
+            example2.createCriteria().andEqualTo("productId",product.getId());
+            example2.setOrderByClause("price asc");
+            PageHelper.startPage(1,1);
+            List<Sku> skus = skuDao.selectByExample(example2);
+            PageHelper.endPage();
+
+            document.addField("price",skus.get(0).getPrice());
+            // 将文档对象添加到solr服务器中
+            solrServer.add(document);
+            solrServer.commit();
+        }
     }
 }
