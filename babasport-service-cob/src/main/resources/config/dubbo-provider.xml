@@ -29,4 +29,5 @@
     <dubbo:protocol port="20882" name="dubbo" host="127.0.0.1"/>
     <!--暴露接口-->
     <dubbo:service interface="com.babasport.core.service.BuyerService" ref="buyerService"/>
+    <dubbo:service interface="com.babasport.core.service.SessionService" ref="sessionService"/>
 </beans>

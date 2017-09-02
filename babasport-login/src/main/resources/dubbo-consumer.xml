@@ -30,6 +30,8 @@
     <!--调用接口-->
     <dubbo:reference interface="com.babasport.core.service.BuyerService" id="buyerService"
                      url="dubbo://127.0.0.1:20882"/>
+    <dubbo:reference interface="com.babasport.core.service.SessionService" id="sessionService"
+                     url="dubbo://127.0.0.1:20882"/>
     <!--全局设置超时时间-->
     <dubbo:consumer timeout="60000" check="false"/>
 </beans>

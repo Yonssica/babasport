@@ -1,3 +1,30 @@
+<script type="text/javascript">
+    $(function() {
+        // 判断用户是否登录
+        $.ajax({
+            url:"http://localhost:8082/isLogin.aspx",
+            type:"get",
+            dataType:"jsonp",
+            success:function (data) {
+                if (data != null && data.length > 0) {
+                    // 登录
+                    $("#showLogin").hide();
+                    $("#regist").hide();
+                    $("#usernameSpan").html(data);
+                } else {
+                    // 未登录
+                    $("#logout").hide();
+                    $("#myOrder").hide();
+                }
+            }
+        })
+    });
+
+    // 显示登录
+    function showLogin() {
+        window.location = 'http://localhost:8082/login.aspx?returnUrl=' + encodeURIComponent(window.location);
+    }
+</script>
 <div id="shortcut-2013">
 	<div class="w">
 		<ul class="fl lh">
@@ -7,11 +34,11 @@
 		</ul>
 		<ul class="fr lh">
 			<li class="fore1" id="loginbar" clstag="homepage|keycount|home2013|01b">
-				您好！欢迎来到新巴巴运动网！
-				<a href="javascript:;" onclick="login()">[登录]</a>&nbsp;
-				<a href="javascript:;" onclick="regist()">[免费注册]</a>
-				<a href="javascript:;" onclick="logout()">[退出]</a>
-				<a href="javascript:;" onclick="myOrder()" >我的订单</a>
+				您好！欢迎<span id="usernameSpan"></span>来到新巴巴运动网！
+				<a id="showLogin" href="javascript:;" onclick="showLogin()">[登录]</a>&nbsp;
+				<a id="regist" href="javascript:;" onclick="regist()">[免费注册]</a>
+				<a id="logout" href="javascript:;" onclick="logout()">[退出]</a>
+				<a id="myOrder" href="javascript:;" onclick="myOrder()" >我的订单</a>
 			</li>
 			<li class="fore2-1 ld" id="jd-vip">
 				<s></s>
